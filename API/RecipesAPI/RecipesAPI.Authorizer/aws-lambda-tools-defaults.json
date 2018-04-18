@@ -1,0 +1,21 @@
+
+{
+    "Information" : [
+        "This file provides default values for the deployment wizard inside Visual Studio and the AWS Lambda commands added to the .NET Core CLI.",
+        "To learn more about the Lambda commands with the .NET Core CLI execute the following command at the command line in the project root directory.",
+        "dotnet lambda help",
+        "All the command line options for the Lambda command can be specified in this file."
+    ],
+    "profile"     : "sydney-summit2018",
+    "region"      : "ap-southeast-2",
+    "configuration" : "Release",
+    "framework"     : "netcoreapp2.0",
+    "function-runtime" : "dotnetcore2.0",
+    "function-memory-size" : 256,
+    "function-timeout"     : 30,
+    "function-handler"     : "RecipesAPI.Authorizer::RecipesAPI.Authorizer.Function::FunctionHandler",
+    "function-name"        : "RecipesAPI-Authorizer",
+    "function-role"        : "arn:aws:iam::205757786632:role/RecipesAPI-Authorizer-ProxyFunctionRole-IIF0S6057IS2",
+    "tracing-mode"         : "PassThrough",
+    "environment-variables" : ""
+}

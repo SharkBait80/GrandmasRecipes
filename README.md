@@ -1,1 +1,1 @@
-GrandmasRecipesGithub
+GrandmasRecipes

@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -22,7 +21,12 @@ namespace RecipesAPI.Authorizer
 
             var TokenValidationParameters = new TokenValidationParameters
             {
-                // TODO: Contruct the token validation parameters
+                 ValidateIssuer=true,
+                ValidateAudience=true,
+                ValidIssuer=SecurityConstants.Issuer,
+                ValidAudience=SecurityConstants.Issuer,
+                ClockSkew= TimeSpan.FromMinutes(3),
+                IssuerSigningKey=new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(SecurityConstants.SecurityKey))
                
             };
 
@@ -53,7 +57,9 @@ namespace RecipesAPI.Authorizer
 
             policy.Statement.Add(new APIGatewayCustomAuthorizerPolicy.IAMPolicyStatement
             {
-                // TODO: Construct the IAM Policy statatement
+                Action=new HashSet<string>(new string[]{"execute-api:Invoke"}),
+                Effect = authorized?"Allow":"Deny",
+                Resource = new HashSet<string>(new string[]{apigAuthRequest.MethodArn})
               
             });
 

@@ -29,9 +29,9 @@ namespace DataLayer
                     request.Names.Add("/Dev/RDS/RecipesDb/ConnString");
                     var response=simpleSystemsManagementClient.GetParametersAsync(request).Result;
                     if (response!=null && response.Parameters!= null && response.Parameters.Count > 0)
-                        return response.Parameters[0].Value;
-                    else
-                        return null;
+                        _ConnString= response.Parameters[0].Value;
+
+                    return _ConnString;
                 }
             }
         }

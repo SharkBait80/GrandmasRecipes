@@ -70,7 +70,7 @@ function refreshSecurityToken()
     return new Promise(function(resolve,reject){
     var enteredPassword=prompt("Please enter the password to access Grandma's recipes.");
 
-    if (enteredPassword!=null && enteredPassword != '')
+    if (enteredPassword)
     {
         var dataToPost= {"": enteredPassword};
         $("#p_Loader").show();

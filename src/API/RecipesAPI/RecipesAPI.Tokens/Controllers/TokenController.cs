@@ -43,7 +43,7 @@ namespace RecipesAPI.Tokens.Controllers
 
                 return Ok(new
                 {
-                    token=new JwtSecurityTokenHandler().WriteToken(token)
+                    token = new JwtSecurityTokenHandler().WriteToken(token)
                 });
             }
 

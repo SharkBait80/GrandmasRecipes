@@ -1,35 +1,53 @@
-# **Grandmas Recipes**
+# GrandmasRecipes
 
-*An example showing how to build an API Gateway custom authoriser using .NET Core 2.0.*
+A demo web application to showcase API Gateway custom authorizers in .NET Core.
 
+### Pre-Requisites
 
-**Pre-Requisites**
+* Install .NET Core 2.0
 
-- Install [.NET Core 2.0](https://www.microsoft.com/net/download/)
+* Install Visual Studio or Rider
 
-- Install [Visual Studio](https://www.visualstudio.com/) or [Rider](https://www.jetbrains.com/rider/)
+* If you are using Windows, install the AWS Toolkit for Visual Studio
 
-- If you are using Windows, install the [AWS Toolkit](https://aws.amazon.com/visualstudio/) for Visual Studio
+-----
 
-**Layout**
+The application is made up of a frontend which is a single page application and a .NET-based solution which serves as the API.
 
-/src/UI - This is where the user interface resides. It is a single page application using HTML, CSS and jQuery.
+----
 
-/src/UI/js/recipes.js - This is the JavaScript file that needs modification in order to turn on/off authorisation.
+## Front End
 
-/src/API/RecipesAPI - Backend solution lives here.
+This is a single page web application in /UI. It consists of a HTML page that uses AJAX calls to an API endpoint. The web application is designed to show the delicious recipes that Grandma has created over the years, but unfortunately she's forgotten to lock-down her API.
 
-**Projects in the Solution**
+## API
 
-- Entities: POCOs for EF code first
+The API is a .NET Core application and laid out as a Visual Studio .sln solution. These are the projects.
 
+### DataLayer
 
-- DataLayer: EF data context
+This is the DbContext for Entity Framework to access the database where all the delicious recipes are stored. The connection string uses AWS SSM parameter store to make sure it doesn't fall into the wrong hands.
 
-- RecipesAPI: ASP.NET Web API project for returning recipes from a database. Deploys as a AWS Serverless project.
+### Entities
 
-- Security: Shared project between token issuer and validator, containing constants
+This project contains the data model for the database objects. It currently only has one object, a Recipe.
 
-- RecipesAPI.Tokens: ASP.NET Web API project that issues JWTs. Deploys as a AWS Serverless project.
+### Security
 
-- RecipesAPI.Authorizer: AWS Lambda function that validates JWT tokens. 
+This is a shared class library between the token issuer and the token validator which contains the shared secrets.
+
+To be more secure, this could probably be locked down using AWS SSM parameter store.
+
+### RecipesAPI
+
+This is an ASP.NET Web API project that is used to serve recipes out using the RecipesController. Using the AWS toolkit for Visual Studio, you can deploy this easily as a serverless application using API Gateway and AWS Lambda.
+
+### RecipesAPI.Tokens
+
+This is an ASP.NET Web API Project that issues tokens for the custom authorizer to validate.  Using the AWS toolkit for Visual Studio, you can deploy this easily as a serverless application using API Gateway and AWS Lambda.
+
+### Recipes.API.Authorizer
+
+This is a AWS Lambda project that is used as a custom authorizer to validate tokens issued using the tokens project. By configuring API Gateway to use this as a custom authorizer, you can take load off your web servers/reverse proxies by offloading AuthZ using this AWS Lambda function.
+
+![](CustomAuth.png)

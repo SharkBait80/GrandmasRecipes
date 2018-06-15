@@ -1,6 +1,0 @@
-nguage: csharp
-mono: none
-dotnet: 2.1.105
-solution: RecipesAPI.sln
-script:
- - dotnet restore

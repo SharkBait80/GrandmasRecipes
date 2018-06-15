@@ -1,6 +1,6 @@
-# GrandmasRecipes
+# Grandma's Recipes
 
-A demo web application to showcase API Gateway custom authorizers in .NET Core.
+A demo web application to showcase API Gateway custom authorizers in .NET Core. API Gateway security with .NET doesn't need to be a complete mystery!
 
 ### Pre-Requisites
 
@@ -71,3 +71,15 @@ Building AWS serverless applications with for .NET are a lot easier once you hav
 * Amazon.Lambda.AspNetCoreServer
 
 ![](CustomAuth.png)
+
+### Wait a minute - why don't I just use the Authorize attribute and let ASP.NET handle the authZ?
+
+The short answer is that you can! If you choose to go down this route, you can add authorization policies in your Startup.cs and because AWS deploys your ASP.NET Web API pipeline in the same manner that Kestrel does, you'll be able to get JWT authorization through your ASP.NET web API that way.
+
+By using a custom authorizer, you get a few benefits:
+
+* Custom authorizers can take load off your normal workload, so if you are using a web server to back your API Gateway deployment, you don't need to waste compute cycles on authZ with each request.
+
+* API Gateway supports cross-account custom authorizers. If you have an architecture that allows you to centralise authorization, you can create a few authorizers to handle many APIs.
+
+* API Gateway supports caching of authorization, so this saves compute resources as each request does not need to go through authorization.

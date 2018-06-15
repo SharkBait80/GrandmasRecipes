@@ -50,4 +50,24 @@ This is an ASP.NET Web API Project that issues tokens for the custom authorizer 
 
 This is a AWS Lambda project that is used as a custom authorizer to validate tokens issued using the tokens project. By configuring API Gateway to use this as a custom authorizer, you can take load off your web servers/reverse proxies by offloading AuthZ using this AWS Lambda function.
 
+### *What are the key libraries/dependencies/NuGet pacakges?*
+
+Remember, we're dealing with security so as far as possible, we want to use standard libraries and not roll our own. The ones that we are using in this project are:
+
+* Microsoft.IdentityModel.Tokens
+
+* System.IdentityModel.Tokens.Jwt
+
+Of course, we are dealing with AWS so the AWS SDK for .NET is going to be used.
+
+* AWSSDK.Core
+* AWSSDK.SimpleSystemsManagement
+
+Building AWS serverless applications with for .NET are a lot easier once you have imported the object model libraries:
+
+* Amazon.Lambda.APIGatewayEvents
+* Amazon.Lambda.Core
+* Amazon.Lambda.Serialization.Json
+* Amazon.Lambda.AspNetCoreServer
+
 ![](CustomAuth.png)

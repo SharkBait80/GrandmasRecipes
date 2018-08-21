@@ -59,7 +59,7 @@ namespace RecipesAPI.Authorizer
 
             policy.Statement.Add(new APIGatewayCustomAuthorizerPolicy.IAMPolicyStatement
             {
-                Action = new HashSet<string>(new string[] { "" }),
+                Action = new HashSet<string>(new string[] { "execute-api:Invoke" }),
                 Effect = authorized ? "Allow" : "Deny",
                 Resource = new HashSet<string>(new string[] { apigAuthRequest.MethodArn })
               
